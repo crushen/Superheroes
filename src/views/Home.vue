@@ -38,7 +38,6 @@ export default {
   computed: {
     ...mapState(['superheroes', 'error', 'loading']),
     filteredSuperheroes() {
-      // Remove the one with no picture
       let results = this.superheroes
 
       if(!this.search) {
