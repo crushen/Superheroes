@@ -24,7 +24,8 @@ export default new Vuex.Store({
   },
   mutations: {
     updateSuperheroes(state, heroes) {
-      state.superheroes = heroes
+      // Remove the one with no picture
+      state.superheroes = heroes.filter(hero => hero.id !== 538)
     },
     setLoading(state) {
       state.loading = false

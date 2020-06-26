@@ -39,7 +39,7 @@ export default {
     ...mapState(['superheroes', 'error', 'loading']),
     filteredSuperheroes() {
       // Remove the one with no picture
-      let results = this.superheroes.filter(hero => hero.id !== 538)
+      let results = this.superheroes
 
       if(!this.search) {
         return results
