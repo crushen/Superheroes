@@ -16,8 +16,8 @@ export default new Vuex.Store({
       Axios
         .get(URL)
         .then(response => {
-          commit('setLoading')
           commit('updateSuperheroes', response.data)
+          commit('setLoading')
         })
         .catch(error => commit('setError', error))
     }
@@ -30,8 +30,10 @@ export default new Vuex.Store({
       state.loading = false
     },
     setError(state, error) {
+      state.loading = false
       state.error = error.message
     }
   }
   // modules: {}
 })
+ 
