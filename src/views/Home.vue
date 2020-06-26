@@ -14,7 +14,8 @@
         <li 
           v-for="hero in filteredSuperheroes"
           :key="hero.id">
-          {{ hero.name }}
+          <p>{{ hero.name }}</p>
+          <img :src="hero.images.sm" @alt="`An image of ${hero.name}`">
         </li>
       </ul>
     </div>
@@ -37,19 +38,16 @@ export default {
   computed: {
     ...mapState(['superheroes', 'error', 'loading']),
     filteredSuperheroes() {
-      let results = this.superheroes
+      // Remove the one with no picture
+      let results = this.superheroes.filter(hero => hero.id !== 538)
 
       if(!this.search) {
         return results
-      } 
+      } else {
+        results = results.filter(hero => hero.name.toLowerCase().includes(this.search.toLowerCase()))
+      }
 
-      results = results.filter(hero => {
-        if(hero.name.toLowerCase().indexOf(this.search) !== -1) {
-          return hero;
-        }
-      })
-
-      return results;
+      return results
     }
   },
   mounted() {
