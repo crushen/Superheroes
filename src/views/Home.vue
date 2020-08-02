@@ -1,74 +1,54 @@
 <template>
   <div>
-  <!-- <section class="home">
-    <div v-if="loading">
-      <p>... loading</p>
-    </div>
+    <header class="content padding-top">
+      <h1 class="heading one">Superhero <span>Database</span></h1>
+      <h2 class="heading four">All superheroes from all <br>of the universes in one place</h2>
+    </header>
 
-    <div v-else>
-      <div 
-        :style="{backgroundImage: `url(${featuredSuperhero.images.md})`}"
-        class="card">
-        <div class="overlay"></div>
-        <div class="body">
-          <div class="name">
-            <p>{{ featuredSuperhero.name }}</p>
-          </div>
+    <section class="content">
+      <div id="hero-search">
+        <label for="search">Search for your favorite hero to <br>find out their stats and background</label>
+        <div class="input">
+          <img src="@/assets/icons/search.svg" alt="">
+          <input
+            v-model="search"
+            id="search"
+            type="search"
+            autocomplete="off">
         </div>
       </div>
+    </section>
 
-      <input 
-        v-model="search"
-        type="text" 
-        placeholder="Search superheroes">
+    <section v-if="!search" class="title-cards content padding-bottom">
+      <title-card
+        v-for="card in titleCards"
+        :key="card.title"
+        :card="card"
+        class="card" />
+    </section>
 
-      <ul v-if="search">
+    <section v-else class="content padding-bottom">
+      <ul>
         <li 
           v-for="hero in filteredSuperheroes"
-          :key="hero.id">
-          <p>{{ hero.name }}</p>
-          <img :src="hero.images.sm" :alt="`An image of ${hero.name}`">
+          :key="hero.id"
+          class="hero-card">
+          <hero-card :hero="hero" />
         </li>
       </ul>
-    </div>
-
-    <div v-if="error">
-      <p>{{ error }}</p>
-    </div>
-  </section> -->
-
-  <header class="content padding-top">
-    <h1 class="heading one">Superhero <span>Database</span></h1>
-    <h2 class="heading four">All superheroes from all <br>of the universes in one place</h2>
-  </header>
-
-  <section class="content">
-    <div id="hero-search">
-      <label for="search">Search for your favorite hero to <br>find out their stats and background</label>
-      <div class="input">
-        <img src="@/assets/icons/search.svg" alt="">
-        <input id="search" type="search" autocomplete="off">
-      </div>
-    </div>
-  </section>
-
-  <section class="cards content padding-bottom">
-    <title-card
-      v-for="card in titleCards"
-      :key="card.title"
-      :card="card"
-      class="title-card" />
-  </section>
+    </section>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 import titleCard from '@/components/cards/TitleCard'
+import heroCard from '@/components/cards/HeroCard'
 
 export default {
   components: {
-    titleCard
+    titleCard,
+    heroCard
   },
   data() {
     return {
@@ -116,7 +96,6 @@ header {
 h1 {
   span {
     display: block;
-    //margin-left: 40px;
   }
 }
 
@@ -150,10 +129,10 @@ h2 {
   }
 }
 
-.cards {
+.title-cards {
   margin-top: 48px;
 
-  .title-card {
+  .card {
     background: $body-med;
 
     &:nth-of-type(even) {
@@ -166,47 +145,7 @@ h2 {
   }
 }
 
-
-
-
-
-
-
-
-// .home {
-//   width: 90%;
-//   margin: auto;
-// }
-// .card {
-//   min-height: 400px;
-//   position: relative;
-//   border-radius: 16px;
-//   background-position: center;
-
-//   .overlay {
-//     width: 100%;
-//     height: 100%;
-//     position: absolute;
-//     z-index: 0;
-//     background: rgba($color: #031126, $alpha: 0.6);
-//     border-radius: 16px;
-//   }
-
-//   .body {
-//     min-height: 400px;
-//     display: flex;
-//     align-items: flex-end;
-//     padding: 16px;
-//     position: relative;
-//     z-index: 5;
-
-//     .name {
-//       font-size: 50px;
-//       margin: 0;
-//       letter-spacing: 2px;
-//       color: white;
-//       font-family: 'Bangers', cursive;
-//     }
-//   }
-// }
+.hero-card {
+  margin-top: 24px;
+}
 </style>
