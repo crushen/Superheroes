@@ -1,11 +1,13 @@
 <template>
-  <div class="card">
+  <router-link
+    :to="{ name: 'Collection', params: { name: card.slug } }"
+    class="card">
     <p>{{ card.title }}</p>
     <img
       :style="{ width: `${card.background.width}px` }"
       :src="card.background.src"
       alt="">
-  </div>
+  </router-link>
 </template>
 
 <script>
@@ -18,6 +20,10 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/assets/styles/variables.scss';
+
+a {
+  text-decoration: none;
+}
 
 .card {
   height: 100px;

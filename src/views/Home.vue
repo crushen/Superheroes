@@ -61,19 +61,11 @@ export default {
       search: null,
       cards: 10,
       filteredLength: null,
-      loading: false,
-      titleCards: [ 
-        { title: "Marvel", background: { src: require('@/assets/logos/marvel.svg'), width: 240 } },
-        { title: "DC Comics", background: { src: require('@/assets/logos/dc.svg'), width: 240 } },
-        { title: "Dark Horse", background: { src: require('@/assets/logos/dark-horse.svg'), width: 220 } },
-        { title: "Star Wars", background: { src: require('@/assets/logos/star-wars-2.svg'), width: 220 } },
-        { title: "Star Trek", background: { src: require('@/assets/logos/star-trek.svg'), width: 200 } },
-        { title: "Image Comics", background: { src: require('@/assets/logos/image.svg'), width: 200 } }
-      ]
+      loading: false
     }
   },
   computed: {
-    ...mapState(['superheroes']),
+    ...mapState(['superheroes', 'titleCards']),
     // Filter heroes by search input
     filteredSuperheroes() {
       return this.superheroes.filter(hero => hero.name.toLowerCase().includes(this.search.toLowerCase()))
