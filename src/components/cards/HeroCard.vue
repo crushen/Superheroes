@@ -48,7 +48,7 @@ export default {
       margin: 0;
       letter-spacing: 2px;
       color: white;
-      font-family: 'Bangers', cursive;
+      font-family: 'Bangers', 'Montserrat', sans-serif;
     }
   }
 }
