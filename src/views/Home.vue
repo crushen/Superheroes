@@ -30,12 +30,19 @@
     <section v-else class="content padding-bottom">
       <ul>
         <li 
-          v-for="hero in filteredSuperheroes"
+          v-for="hero in loadedSuperheroes"
           :key="hero.id"
           class="hero-card">
           <hero-card :hero="hero" />
         </li>
       </ul>
+
+      <button
+        v-if="filteredSuperheroes.length > 10 && filteredSuperheroes.length !== loadedSuperheroes.length"
+        @click="cards = cards + 10"
+        class="button">
+        Show More
+      </button>
     </section>
   </div>
 </template>
@@ -53,6 +60,8 @@ export default {
   data() {
     return {
       search: null,
+      cards: 10,
+      filteredLength: null,
       titleCards: [ 
         { title: "Marvel", background: { src: require('@/assets/logos/marvel.svg'), width: 240 } },
         { title: "DC Comics", background: { src: require('@/assets/logos/dc.svg'), width: 240 } },
@@ -66,18 +75,15 @@ export default {
   computed: {
     ...mapState(['superheroes', 'error', 'loading']),
     filteredSuperheroes() {
-      let results = this.superheroes
-
-      if(!this.search) {
-        return results
-      } else {
-        results = results.filter(hero => hero.name.toLowerCase().includes(this.search.toLowerCase()))
-      }
-
-      return results
+      return this.superheroes.filter(hero => hero.name.toLowerCase().includes(this.search.toLowerCase()))
     },
-    featuredSuperhero() {
-      return this.superheroes[Math.floor(Math.random() * this.superheroes.length)];
+    loadedSuperheroes() {
+      return this.filteredSuperheroes.slice(0, this.cards)
+    }
+  },
+  watch: {
+    search() {
+      this.cards = 10
     }
   },
   mounted() {
@@ -95,8 +101,8 @@ header {
 
 .heading.one {
   font-size: 56px;
-  font-family: 'Bangers', cursive;
-  letter-spacing: 2px;
+  font-family: 'Bangers', 'Montserrat', sans-serif;
+  letter-spacing: 3px;
 
   span {
     display: block;
