@@ -36,13 +36,6 @@
           <hero-card :hero="hero" />
         </li>
       </ul>
-
-      <button
-        v-if="filteredSuperheroes.length > 10 && filteredSuperheroes.length !== loadedSuperheroes.length"
-        @click="cards = cards + 10"
-        class="button">
-        Show More
-      </button>
     </section>
   </div>
 </template>
@@ -74,20 +67,39 @@ export default {
   },
   computed: {
     ...mapState(['superheroes', 'error', 'loading']),
+    // Filter heroes by search input
     filteredSuperheroes() {
       return this.superheroes.filter(hero => hero.name.toLowerCase().includes(this.search.toLowerCase()))
     },
+    // Only load 10 heroes at a time
     loadedSuperheroes() {
       return this.filteredSuperheroes.slice(0, this.cards)
     }
   },
   watch: {
+    // Reset number of cards when new search
     search() {
       this.cards = 10
     }
   },
+  methods: {
+    // Infinite / Lazy scroll - When user hits bottom of page, add 10 more cards
+    scroll() {
+      window.addEventListener('scroll', () => {
+        const currentScroll = document.documentElement.scrollTop + window.innerHeight + 1,
+              pageHeight = document.documentElement.offsetHeight,
+              bottomOfWindow = currentScroll >= pageHeight;
+
+        // Only add more to cards if user has reached bottom & there are more heroes left in filtered array
+        if(bottomOfWindow && this.filteredSuperheroes.length > this.loadedSuperheroes.length) {
+          this.cards += 10
+        }
+      }) 
+    }
+  },
   mounted() {
     this.$store.dispatch('loadSuperheroes')
+    this.scroll()
   }
 }
 </script>
