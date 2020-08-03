@@ -13,8 +13,8 @@ export default new Vuex.Store({
       { title: "DC Comics", slug: 'dc-comics', background: { src: require('@/assets/logos/dc.svg'), width: 240 } },
       { title: "Dark Horse", slug: 'dark-horse', background: { src: require('@/assets/logos/dark-horse.svg'), width: 220 } },
       { title: "Star Wars", slug: 'star-wars', background: { src: require('@/assets/logos/star-wars-2.svg'), width: 220 } },
-      { title: "Star Trek", slug: 'star-trek', background: { src: require('@/assets/logos/star-trek.svg'), width: 200 } },
-      { title: "Image Comics", slug: 'image-comics', background: { src: require('@/assets/logos/image.svg'), width: 200 } }
+      { title: "Image Comics", slug: 'image-comics', background: { src: require('@/assets/logos/image.svg'), width: 200 } },
+      { title: "Star Trek", slug: 'star-trek', background: { src: require('@/assets/logos/star-trek.svg'), width: 200 } }
     ]
   },
   actions: {

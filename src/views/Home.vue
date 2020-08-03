@@ -179,8 +179,4 @@ h2 {
     }
   }
 }
-
-.hero-card {
-  margin-top: 24px;
-}
 </style>
