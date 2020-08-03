@@ -45,6 +45,14 @@ ul {
   list-style: none;
 }
 
+// Buttons
+button.button {
+  padding: 16px;
+  @include font(18px, 600);
+  background: $accent;
+  border-radius: $border-radius;
+}
+
 // Forms
 button,
 input,
