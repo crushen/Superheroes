@@ -91,7 +91,7 @@ export default {
               bottomOfWindow = currentScroll >= pageHeight;
 
         // Only add more to cards if user has reached bottom & there are more heroes left in filtered array
-        if(bottomOfWindow && this.filteredSuperheroes.length > this.loadedSuperheroes.length) {
+        if(bottomOfWindow && this.search && this.filteredSuperheroes.length > this.loadedSuperheroes.length) {
           this.cards += 10
         }
       }) 
