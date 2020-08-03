@@ -58,7 +58,12 @@ export default {
         array = this.superheroes.filter(hero => hero.biography.publisher === 'Image Comics')
       } else if(this.collection.title === 'Star Trek') {
         array = this.superheroes.filter(hero => hero.biography.publisher === 'Star Trek')
-      }
+      } 
+      
+      // Something like this for links from all collections page
+      // else {
+      //   array = this.superheroes.filter(hero => hero.biography.publisher.toLowerCase() === this.slug.toLowerCase())
+      // }
 
       return array
     },

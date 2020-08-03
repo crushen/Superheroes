@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '@/views/Home.vue'
+import Collections from  '@/views/collections/Collections'
 import Collection from  '@/views/collections/Collection'
 
 Vue.use(VueRouter)
@@ -12,7 +13,12 @@ Vue.use(VueRouter)
     component: Home
   },
   {
-    path: '/collection/:name',
+    path: '/collections',
+    name: 'Collections',
+    component: Collections
+  },
+  {
+    path: '/collections/:name',
     name: 'Collection',
     component: Collection
   }
