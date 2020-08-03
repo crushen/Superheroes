@@ -1,5 +1,9 @@
 <template>
   <div>
+    <transition name="fade">
+      <loader v-if="loading" />
+    </transition>
+
     <header class="content padding-top">
       <h1 class="heading one">Superhero <span>Database</span></h1>
       <h2 class="heading four">All superheroes from all <br>of the universes in one place</h2>
@@ -44,17 +48,20 @@
 import { mapState } from 'vuex'
 import titleCard from '@/components/cards/TitleCard'
 import heroCard from '@/components/cards/HeroCard'
+import loader from '@/components/loaders/Dots'
 
 export default {
   components: {
     titleCard,
-    heroCard
+    heroCard,
+    loader
   },
   data() {
     return {
       search: null,
       cards: 10,
       filteredLength: null,
+      loading: false,
       titleCards: [ 
         { title: "Marvel", background: { src: require('@/assets/logos/marvel.svg'), width: 240 } },
         { title: "DC Comics", background: { src: require('@/assets/logos/dc.svg'), width: 240 } },
@@ -66,7 +73,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['superheroes', 'error', 'loading']),
+    ...mapState(['superheroes']),
     // Filter heroes by search input
     filteredSuperheroes() {
       return this.superheroes.filter(hero => hero.name.toLowerCase().includes(this.search.toLowerCase()))
@@ -92,7 +99,11 @@ export default {
 
         // Only add more to cards if user has reached bottom & there are more heroes left in filtered array
         if(bottomOfWindow && this.search && this.filteredSuperheroes.length > this.loadedSuperheroes.length) {
-          this.cards += 10
+          this.loading = true
+          setTimeout(() => {
+            this.loading = false
+            this.cards += 10
+          }, 800)
         }
       }) 
     }
@@ -106,6 +117,16 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/assets/styles/variables.scss';
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: 0.2s;
+}
 
 header {
   text-align: center;
