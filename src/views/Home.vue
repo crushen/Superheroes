@@ -93,7 +93,11 @@ header {
   text-align: center;
 }
 
-h1 {
+.heading.one {
+  font-size: 56px;
+  font-family: 'Bangers', cursive;
+  letter-spacing: 2px;
+
   span {
     display: block;
   }
