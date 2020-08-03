@@ -20,10 +20,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/styles/variables.scss';
+
 .card {
   min-height: 400px;
   position: relative;
-  border-radius: 16px;
+  border-radius: $border-radius;
   background-position: center;
 
   .overlay {
@@ -32,7 +34,7 @@ export default {
     position: absolute;
     z-index: 0;
     background: rgba($color: #031126, $alpha: 0.6);
-    border-radius: 16px;
+    border-radius: $border-radius;
   }
 
   .body {
