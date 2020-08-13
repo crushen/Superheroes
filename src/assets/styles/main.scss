@@ -39,6 +39,16 @@ html {
   &.three { @include font(24px, 600) }
 
   &.four { @include font(18px, 600) }
+
+  &.cursive {
+    font-family: 'Bangers', 'Montserrat', sans-serif;
+    letter-spacing: 3px;
+  }
+}
+
+a {
+  color: white;
+  text-decoration: none;
 }
 
 ul {

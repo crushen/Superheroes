@@ -5,7 +5,7 @@
     </transition>
 
     <header class="content padding-top">
-      <h1 class="heading one">Superhero <span>Database</span></h1>
+      <h1 class="heading one cursive">Superhero <span>Database</span></h1>
       <h2 class="heading four">All superheroes from all <br>of the universes in one place</h2>
     </header>
 
@@ -126,9 +126,7 @@ header {
 
 .heading.one {
   font-size: 56px;
-  font-family: 'Bangers', 'Montserrat', sans-serif;
-  letter-spacing: 3px;
-
+  
   span {
     display: block;
   }
