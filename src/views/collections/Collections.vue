@@ -133,7 +133,6 @@ h1 {
 
     li {
       padding: 2px;
-      position: relative;
 
       &:not(:first-of-type) {
         margin-top: 8px;
@@ -141,12 +140,18 @@ h1 {
 
       &:not(:last-of-type) {
         border-bottom: 1px solid lighten($color: $background, $amount: 7%);
+        padding: 2px 2px 10px 2px;
+      }
+
+      a {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
       }
 
       .icon {
         width: 10px;
-        position: absolute;
-        right: 0;
       }
     }
   }
