@@ -5,7 +5,7 @@
     </transition>
 
     <header class="content padding-top">
-      <h1>{{ collection.title }}</h1>
+      <h1>{{ collection }}</h1>
     </header>
     
     <section class="content padding-bottom">
@@ -41,31 +41,20 @@ export default {
   computed: {
     ...mapState(['superheroes', 'titleCards']),
     collection() {
-      return this.titleCards.find(item => item.slug === this.slug)
+      const array = []
+      this.superheroes.forEach(hero => {
+        if(typeof hero.biography.publisher === 'string') {
+          const slug = this.$route.params.name.replace(/-/g, '')
+          const publisher = hero.biography.publisher.replace(/ /g, '').replace(/-/g, '').replace(/\./g,'').toLowerCase()
+          if(slug === publisher) {
+            array.push(hero)
+          }
+        }
+      })
+      return array[0].biography.publisher
     },
     collectionHeroes() {
-      let array = []
-
-      if(this.collection.title === 'Marvel') {
-        array = this.superheroes.filter(hero => hero.biography.publisher === 'Marvel Comics')
-      } else if(this.collection.title === 'DC Comics') {
-        array = this.superheroes.filter(hero => hero.biography.publisher === 'DC Comics')
-      } else if(this.collection.title === 'Dark Horse') {
-        array = this.superheroes.filter(hero => hero.biography.publisher === 'Dark Horse Comics')
-      } else if(this.collection.title === 'Star Wars') {
-        array = this.superheroes.filter(hero => hero.biography.publisher === 'George Lucas' && hero.name !== 'Indiana Jones')
-      } else if(this.collection.title === 'Image Comics') {
-        array = this.superheroes.filter(hero => hero.biography.publisher === 'Image Comics')
-      } else if(this.collection.title === 'Star Trek') {
-        array = this.superheroes.filter(hero => hero.biography.publisher === 'Star Trek')
-      } 
-      
-      // Something like this for links from all collections page
-      // else {
-      //   array = this.superheroes.filter(hero => hero.biography.publisher.toLowerCase() === this.slug.toLowerCase())
-      // }
-
-      return array
+      return this.superheroes.filter(hero => hero.biography.publisher === this.collection)
     },
     loadedSuperheroes() {
       return this.collectionHeroes.slice(0, this.cards)
