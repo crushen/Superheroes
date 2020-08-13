@@ -1,20 +1,26 @@
 <template>
   <div>
     <section class="content padding-top">
-      <h1>Collections</h1> 
+      <h1 class="heading one cursive">Collections</h1> 
+
+      <h2 class="heading four">A list of all the major superhero groups, publications and authors.</h2>
     </section>
 
-    <section class="content padding-top padding-bottom">
-      <ul>
+    <section class="content padding-bottom">
+      <ul class="collection-wrapper">
         <li
           v-for="collection in sortedCollections"
-          :key="collection.letter">
-          <h2>{{ collection.letter }}</h2>
-          <ul>
+          :key="collection.letter"
+          class="collection">
+          <h3>{{ collection.letter }}</h3>
+          <ul class="inner">
             <li
               v-for="item in collection.collections"
               :key="item">
-              {{ item }}
+              <router-link :to="{ name: 'Collection', params: { name: slugify(item) }}">
+                {{ item }}
+                <img class="icon" src="@/assets/icons/arrow-right.svg" alt="">
+              </router-link>
             </li>
           </ul>
         </li>
@@ -72,19 +78,24 @@ export default {
     }
   },
   methods: {
-    slugify(string) {
-    const a = 'àáâäæãåāăąçćčđďèéêëēėęěğǵḧîïíīįìłḿñńǹňôöòóœøōõőṕŕřßśšşșťțûüùúūǘůűųẃẍÿýžźż·/_,:;'
-    const b = 'aaaaaaaaaacccddeeeeeeeegghiiiiiilmnnnnoooooooooprrsssssttuuuuuuuuuwxyyzzz------'
-    const p = new RegExp(a.split('').join('|'), 'g')
+    slugify(str) {
+      str = str.replace(/^\s+|\s+$/g, '')
+      // Make the string lowercase
+      str = str.toLowerCase()
+      // Remove accents, swap ñ for n, etc
+      var from = "ÁÄÂÀÃÅČÇĆĎÉĚËÈÊẼĔȆÍÌÎÏŇÑÓÖÒÔÕØŘŔŠŤÚŮÜÙÛÝŸŽáäâàãåčçćďéěëèêẽĕȇíìîïňñóöòôõøðřŕšťúůüùûýÿžþÞĐđßÆa·/_,:;"
+      var to   = "AAAAAACCCDEEEEEEEEIIIINNOOOOOORRSTUUUUUYYZaaaaaacccdeeeeeeeeiiiinnooooooorrstuuuuuyyzbBDdBAa------"
+      for (var i=0, l=from.length ; i<l ; i++) {
+        str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i))
+      }
+      // Remove invalid chars
+      str = str.replace(/[^a-z0-9 -]/g, '') 
+      // Collapse whitespace and replace by -
+      .replace(/\s+/g, '-') 
+      // Collapse dashes
+      .replace(/-+/g, '-')
 
-    return string.toString().toLowerCase()
-      .replace(/\s+/g, '-') // Replace spaces with -
-      .replace(p, c => b.charAt(a.indexOf(c))) // Replace special characters
-      .replace(/&/g, '-and-') // Replace & with 'and'
-      .replace(/[^\w\-]+/g, '') // Remove all non-word characters
-      .replace(/\-\-+/g, '-') // Replace multiple - with single -
-      .replace(/^-+/, '') // Trim - from start of text
-      .replace(/-+$/, '') // Trim - from end of text
+      return str
     }
   },
   mounted() {
@@ -92,3 +103,52 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+@import '@/assets/styles/variables.scss';
+
+h1 {
+  margin-bottom: 16px;
+}
+
+.collection-wrapper {
+  margin-top: 54px;
+}
+
+.collection {
+  border: 6px solid lighten($color: $background, $amount: 7%);
+  border-radius: $border-radius;
+
+  &:not(:first-of-type) {
+    margin-top: 24px;
+  }
+
+  h3 {
+    padding: 8px;
+    background: lighten($color: $background, $amount: 7%);
+  }
+
+  .inner {
+    padding: 8px;
+
+    li {
+      padding: 2px;
+      position: relative;
+
+      &:not(:first-of-type) {
+        margin-top: 8px;
+      }
+
+      &:not(:last-of-type) {
+        border-bottom: 1px solid lighten($color: $background, $amount: 7%);
+      }
+
+      .icon {
+        width: 10px;
+        position: absolute;
+        right: 0;
+      }
+    }
+  }
+}
+</style>
